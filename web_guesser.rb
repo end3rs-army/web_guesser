@@ -5,5 +5,5 @@ require 'sinatra/reloader' if development?
 random = rand(101)
 
 get '/' do
-  "#{random}"
+  erb :index, :locals => {:number => random}
 end
