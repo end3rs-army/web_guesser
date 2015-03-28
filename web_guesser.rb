@@ -1,8 +1,7 @@
 require 'sinatra'
-require 'sinatra/fix_951'
 require 'sinatra/reloader' if development?
 
-@@guess_count = 0
+@@guess_count = -1
 
 get '/' do
   random = randomizer
@@ -20,15 +19,13 @@ def randz
 end
 
 def randomizer
-  if @@guess_count == 0
-    @@guess_count = 1
-    randz
-  elsif @@guess_count == 5
-    @@guess_count = 1
+  if @@guess_count == 5
+    @@guess_count = 0
     randz
   else
+    @@guess_count ||= 0
     @@guess_count += 1
-    @@rand
+    @@rand ||= randz
   end
 end
 
